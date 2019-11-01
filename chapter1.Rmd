@@ -4,5 +4,5 @@ I am **extremely excited** about this course and I am hoping to learn as much as
 
 ## Links to my GitHub pages 
 
-[GitHub IODS repository] (https://github.com/jonnelintunen/IODS-project) 
-[GitHub IODS course diary] (https://jonnelintunen.github.io/IODS-project/)
+[GitHub IODS repository] (www.github.com/jonnelintunen/IODS-project)  
+[GitHub IODS course diary] (www.jonnelintunen.github.io/IODS-project/)
