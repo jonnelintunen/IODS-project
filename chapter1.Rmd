@@ -3,4 +3,5 @@
 I am **extremely excited** about this course and I am hoping to learn as much as I can from *data science* and *using R-language*. I am a PhD student in medicine at the University of Eastern Finland and I got the info about this course through our email list. For my PhD project I have been trying to learn the basics of Python (which I really love) but since this course seemed to be really interesting ~~(eventhough it is using R instead of Python)~~ I decided to jump in and try a new language. 
 
 #### Links to my GitHub pages 
-
+[My IODS repository](https://github.com/jonnelintunen/IODS-project)
+[My IODS course diary](https://jonnelintunen.github.io/IODS-project/)
