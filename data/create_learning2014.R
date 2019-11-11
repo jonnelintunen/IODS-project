@@ -38,7 +38,7 @@ colnames(analysis)[3] <- "attitude"
 colnames(analysis)[7] <- "points"
 
 #Excluding those who had zero points
-analysis2 <- subset(analysis, points > 0) #166 obs. and 7 var. 
+analysis2 <- subset(analysis, points > 0) #166 obs. and 7 var. Note: There are 166 obs. eventhough the last ID in the dataset is 183 (the IDs remain the same after data manipulation, they are not counting the observations).
 analysis <- analysis2
 
 #Saving dataset and testing that it opens 
