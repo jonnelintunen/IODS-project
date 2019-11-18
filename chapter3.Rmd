@@ -1,3 +1,56 @@
-# Testing
+## Logistic regression (week 3)
+
+Dataset is read from a local folder
+```{r}
+getwd()
+setwd("/Users/jonnelintunen/Desktop/IODS-project/data")
+alc <- read.table("alc.txt", header = T)
+head(alc)
+tail(alc)
+```
+
+### Selecting variables and hypothesis
+
+Selected variables are studytime, failures, romantic and absences. Hypothesis are:
+* high alcohol users use less time for studying
+* high alc users have more failures
+* high alc users are more usually men  
+* high alc users have more absences 
+
+### Logistic regression
+
+```{r}
+logistic_model <- glm(high_use ~ studytime + failures + sex + absences, data = alc, family = "binomial")
+summary(logistic_model)
+```
+studytime, sex and absences are statistically significant (z-value over 2 which corresponds approx to P-value < 0.05). The bigger the z-value is the better:  z-value is Coefficient Estimate divided by Standard Error, so if z-value is big it means that Standard Error is small. 
+
+```{r}
+coef(logistic_model)
+```
+
+### Odds ratio
+```{r}
+library(dplyr)
+OR <- coef(logistic_model) %>% exp
+CI <- confint(logistic_model) %>% exp
+cbind(OR, CI)
+```
+And again, studytime, sex and absences are statistically significant because CI doesn't include one.
+Results for significant variables: 
+* When studytime increases by one unit, alcohol consumption is 0.71 (0.51-0.97) times lower
+* Being male increases the odds of being high alc user by 2.21 times (1.36-3.65) compared to females
+* When absences increase by one unit, alcohol consumption is 1.09 (1.05-1.14) times higher 
+
+### Binary predictions 
+```{r}
+new_model <- glm(high_use ~ studytime + sex + absences, data = alc, family = "binomial")
+prob <- predict(new_model, type = "response")
+alc <- mutate(alc, probability = prob)
+alc <- mutate(alc, prediction = prob > 0.5)
+
+table(high_use = alc$high_use, prediction = alc$prediction)
+```
+Model predicts 10 + 88 = 98 (26 %) cases wrongly from the total of 382 cases. 
 
 
