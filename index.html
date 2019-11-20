@@ -598,8 +598,13 @@ head(alc)</code></pre>
 ## 382    3    4      5        2 10 12 10     3.5     TRUE</code></pre>
 <div id="selecting-variables-and-hypothesis" class="section level3">
 <h3>Selecting variables and hypothesis</h3>
-<p>Selected variables are studytime, failures, romantic and absences. Hypothesis are: * high alcohol users use less time for studying * high alc users have more failures * high alc users are more usually men<br />
-* high alc users have more absences</p>
+<p>Selected variables are studytime, failures, romantic and absences. Hypothesis are:</p>
+<ul>
+<li>High alcohol users use less time for studying</li>
+<li>High alc users have more failures</li>
+<li>High alc users are more usually men</li>
+<li>High alc users have more absences</li>
+</ul>
 </div>
 <div id="logistic-regression" class="section level3">
 <h3>Logistic regression</h3>
@@ -664,7 +669,12 @@ CI &lt;- confint(logistic_model) %&gt;% exp</code></pre>
 ## failures    1.4340230 0.9804979 2.1153252
 ## sexM        2.2137693 1.3559547 3.6508476
 ## absences    1.0912690 1.0455005 1.1442053</code></pre>
-<p>And again, studytime, sex and absences are statistically significant because CI doesn’t include one. Results for significant variables: * When studytime increases by one unit, alcohol consumption is 0.71 (0.51-0.97) times lower * Being male increases the odds of being high alc user by 2.21 times (1.36-3.65) compared to females * When absences increase by one unit, alcohol consumption is 1.09 (1.05-1.14) times higher</p>
+<p>And again, studytime, sex and absences are statistically significant because CI doesn’t include one. Results for significant variables:</p>
+<ul>
+<li>When studytime increases by one unit, alcohol consumption is 0.71 (0.51-0.97) times lower</li>
+<li>Being male increases the odds of being high alc user by 2.21 times (1.36-3.65) compared to females</li>
+<li>When absences increase by one unit, alcohol consumption is 1.09 (1.05-1.14) times higher</li>
+</ul>
 </div>
 <div id="binary-predictions" class="section level3">
 <h3>Binary predictions</h3>
