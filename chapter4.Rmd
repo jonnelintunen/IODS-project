@@ -1,0 +1,123 @@
+## Clustering and classification (week 4) 
+
+Dataset is read from MASS package inside R
+```{r}
+library(MASS)
+data("Boston")
+str(Boston)
+summary(Boston)
+```
+The Boston dataset has 506 observations and 14 variables. Dataset is for analyzing housing values in suburbs of Boston. Variables are 
+
+1. crim = per capita crime rate by town.
+
+2. zn = proportion of residential land zoned for lots over 25,000 sq.ft.
+
+3. indus = proportion of non-retail business acres per town.
+
+4. chas = Charles River dummy variable (= 1 if tract bounds river; 0 otherwise).
+
+5. nox = nitrogen oxides concentration (parts per 10 million).
+
+6. rm = average number of rooms per dwelling.
+
+7. age = proportion of owner-occupied units built prior to 1940.
+
+8. dis = weighted mean of distances to five Boston employment centres.
+
+9. rad = index of accessibility to radial highways.
+
+10. tax = full-value property-tax rate per \$10,000.
+
+11. ptratio = pupil-teacher ratio by town.
+
+12. black = 1000(Bk - 0.63)^2 where Bk is the proportion of blacks by town.
+
+13. lstat = lower status of the population (percent).
+
+14. medv = median value of owner-occupied homes in \$1000s.
+
+### Correlation between variables 
+```{r}
+library(corrplot)
+correlation_Boston <- cor(Boston)
+correlation_Boston
+correlation_Boston <- round(correlation_Boston, digits = 2)
+correlation_Boston
+corrplot(correlation_Boston, method = "number", type = "upper", cl.pos = "b", tl.pos = "d", tl.cex = 0.6, cl.cex = 0.8, number.cex = 0.7 , title = "Correlation between variables")
+```
+From the graphical output we can see that rad and tax have the strongest positive correlation (0.91) and lstat and medv the strongest negative correlation (-0.74).
+
+### Scaling the dataset and converting the scaled dataset to data frame
+```{r}
+scaled_Boston <- scale(Boston)
+class(scaled_Boston)
+scaled_Boston <- as.data.frame(scaled_Boston)
+
+```
+
+### Creating categorical variable crime from the numerical variable crim 
+```{r}
+bins <- quantile(scaled_Boston$crim)
+bins
+
+crime <- cut(scaled_Boston$crim, breaks = bins, include.lowest = TRUE, label = c("low", "med_low", "med_high", "high"))
+table(crime)
+
+scaled_Boston <- dplyr::select(scaled_Boston, -crim)
+scaled_Boston <- data.frame(scaled_Boston, crime)
+```
+
+### Dividing the dataset for training and testing
+```{r}
+n <- nrow(scaled_Boston)
+
+ind <- sample(n,  size = n * 0.8)
+
+train <- scaled_Boston[ind, ]
+
+test <- scaled_Boston[-ind, ]
+
+correct_classes <- dplyr::select(test, crime)
+
+test <- dplyr::select(test, -crime)
+```
+
+### Linear discriminant analysis (LDA)
+Target variable is crime and all the other variables are explanatory variables. 
+```{r}
+lda.crime <- lda(crime ~ ., data = train)
+lda.crime
+plot(lda.crime, dimen = 2)
+```
+
+### Testing how well the model predicts values
+```{r}
+lda.pred <- predict(lda.crime, newdata = test)
+lda.pred
+cross_tab <- table(correct = correct_classes$crime, predicted = lda.pred$class)
+cross_tab
+prop.table(cross_tab, 1)
+```
+From the cross tabulation's percentage table we can see that the model predicts low and high classes well but there are more error with the classes that are "in the middle" (med_low, med_high).
+
+### Clustering
+First scaling the dataset
+```{r}
+library(MASS)
+data("Boston")
+str(Boston)
+Boston <- scale(Boston)
+str(Boston)
+Boston <- as.data.frame(Boston)
+str(Boston)
+```
+Calculating the distances between the observations
+```{r}
+dist_eu <- dist(Boston)
+summary(dist_eu)
+```
+```
+
+
+
