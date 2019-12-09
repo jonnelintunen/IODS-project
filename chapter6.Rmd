@@ -1,0 +1,31 @@
+## Analysis of longitudinal data (week 6)
+
+### BPRS dataset
+```{r}
+library(ggplot2)
+getwd()
+setwd("/Users/jonnelintunen/Desktop/IODS-project/data")
+BPRSlong <- read.table("BPRSlong.txt", header = T)
+BPRSlong$treatment <- factor(BPRSlong$treatment)
+BPRSlong$subject <- factor(BPRSlong$subject)
+ggplot(BPRSlong, aes(x = week, y = bprs, group = treatment, linetype = treatment)) + 
+  geom_line()
+
+```
+It is quite hard to interpret this plot but it seems that in both treatment groups there is first a decrease in bprs values but in the treatment group 1 bprs value increases again at the end (week 8).
+
+### RATS dataset
+```{r}
+library(ggplot2)
+getwd()
+setwd("/Users/jonnelintunen/Desktop/IODS-project/data")
+RATSlong <- read.table("RATSlong.txt", header = T)
+RATSlong$Group <- factor(RATSlong$Group)
+ggplot(RATSlong, aes(x = Time, y = Weight, group = ID, linetype = Group)) + 
+  geom_line()
+
+```
+We can see that there is more increase in weight with the rats in the groups 2 and 3. In the group 1 the  increase is rather insignificant. 
+
+
+
